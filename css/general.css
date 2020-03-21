@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+  appearance: none;
+  webkit-appearance: none;
+  font-family: 'Lato', sans-serif
+}
+
+.heading {
+  font-family: 'Nunito', sans-serif;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}

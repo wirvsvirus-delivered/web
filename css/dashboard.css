@@ -1,0 +1,129 @@
+.dashboard-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+.dashboard {
+  width: 80vw;
+  max-width: 1000px;
+  height: 80vh;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.dashboard-topbar {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+  border-radius: 10px 10px 0px 0px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 22px 25px -5px rgba(0,0,0,0.25);
+-moz-box-shadow: 0px 22px 25px -5px rgba(0,0,0,0.25);
+box-shadow: 0px 22px 25px -5px rgba(0,0,0,0.25);
+}
+
+.dashboard-topbar-brand {
+  display: flex;
+  flex-direction: row;
+align-items: center;
+  height: 100%;
+  padding: 0 10px;
+  font-size: 30px;
+}
+
+.dashboard-topbar-brand img{
+  height: 60px;
+  margin-right: 10px;
+}
+
+.dashboard-topbar-actions {
+  list-style: none;
+}
+
+.dashboard-topbar-actions button {
+  justify-content: center;
+  align-items: center;
+  background: #ab1c48;
+  color: #fff;
+  outline: 0;
+  border: 2px solid #f08221;
+  height: 40px;
+  margin-right: 20px;
+  border-radius: 30px;
+  display: flex;
+  padding: 0px 15px;
+  font-size: 15px;
+}
+
+.dashboard-topbar-actions button i {
+  margin-right: 10px
+}
+
+.dashboard-body {
+  padding: 0px 20px;
+}
+
+.dashboard-body h1 {
+  text-decoration: underline;
+  text-decoration-color: #f08221;
+}
+
+.dashboard-body table {
+  width: 100%;
+  border-spacing: 0;
+  overflow-x: auto;
+}
+
+.dashboard-body table thead td {
+  text-decoration: underline;
+  text-decoration-color: #ab1c48;
+  font-size: 20px
+}
+
+.dashboard-body table td {
+  border-right: 1px solid #ddd;
+  padding: 2px 6px;
+}
+
+.dashboard-body table * td:last-child {
+  border-right: none;
+}
+
+.dashboard-floatingActionButton-wrapper {
+  width: 80vw;
+  height: 70px;
+  max-width: 1000px;
+  left: auto;
+  right: auto;
+  bottom: 10vh;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.dashboard-floatingActionButton {
+  display: flex;
+  border-radius: 25px;
+  padding: 0px 10px;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  background: #ab1c48;
+  color: #fff;
+  outline: 0;
+  border: 2px solid #f08221;
+  height: 50px;
+  margin-right: 20px;
+  -webkit-box-shadow: 0px 0px 25px 10px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 0px 25px 10px rgba(0,0,0,0.25);
+  box-shadow: 0px 0px 25px 10px rgba(0,0,0,0.25);
+}
