@@ -15,7 +15,7 @@
   </div>
   <div class="modal-wrapper modal-newEntry-wrapper">
     <div class="modal modal-newEntry">
-      <h2 class="heading">Neuer Eintrag
+      <h2 class="heading">Neuer Auftrag
         <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-newEntry-wrapper').hide();">
           <i class="material-icons md-18">highlight_off</i>
         </button>
@@ -43,14 +43,14 @@
       </form>
     </div>
   </div>
-  <div class="modal-wrapper modal-showEntry-wrapper">
-    <div class="modal modal-showEntry">
-      <h2 class="heading">Eintrag anzeigen
-        <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-showEntry-wrapper').hide();">
+  <div class="modal-wrapper modal-searchEntry-wrapper">
+    <div class="modal modal-searchEntry">
+      <h2 class="heading">Auftr&auml;ge anzeigen
+        <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-searchEntry-wrapper').hide();">
           <i class="material-icons md-18">highlight_off</i>
         </button>
       </h2>
-      <form class="form-newEntry">
+      <form class="form-searchEntry">
         <input required type="text" name="fname" placeholder="Vorname">
         <input required type="text" name="lname" placeholder="Nachname">
         <input required type="number" name="zip" placeholder="PLZ">
@@ -58,14 +58,35 @@
       </form>
     </div>
   </div>
+  <div class="modal-wrapper modal-showEntry-wrapper">
+    <div class="modal modal-showEntry">
+      <h2 class="heading">Auftr&auml;ge f&uuml;r <span></span>
+        <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-showEntry-wrapper').hide();">
+          <i class="material-icons md-18">highlight_off</i>
+        </button>
+      </h2>
+      <div id="entries">
+        <hr>
+        <section id="zip">
+          <h3>PLZ</h3>
+          <p></p>
+        </section>
+      </div>
+    </div>
+  </div>
+
   <div class="dashboard-wrapper">
     <div class="dashboard">
       <div class="dashboard-topbar">
         <div class="dashboard-topbar-brand heading"><img src="img/icon.png" alt="delivered"> &nbsp;Dashboard</div>
         <ul class="dashboard-topbar-actions">
+          <li style="text-align: right">
+            Angemeldet als <br>
+            <span id="email"></span>
+          </li>
           <li>
             <button onclick="signOut()" style="background:#ab1c48">
-              <i class="material-icons md-18">exit_to_app</i>
+              <i class="material-icons">exit_to_app</i>
               Abmelden
             </button>
           </li>
@@ -75,21 +96,9 @@
         <h1 class="heading" style="padding-top: 40px;">Auftr&auml;ge</h1>
         <div class="dashboard-body-button-wrapper">
           <div>
-            <button onclick="$('.modal-showEntry-wrapper').css('display', 'flex')">
+            <button onclick="$('.modal-searchEntry-wrapper').css('display', 'flex')">
               <i class="material-icons">visibility</i>
               <span>Auftrag anzeigen</span>
-            </button>
-          </div>
-          <div>
-            <button>
-              <i class="material-icons">create</i>
-              <span>Auftrag bearbeiten</span>
-            </button>
-          </div>
-          <div>
-            <button>
-              <i class="material-icons">delete_outline</i>
-              <span>Auftrag l&ouml;schen</span>
             </button>
           </div>
           <div>
@@ -112,6 +121,7 @@
   <script>
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
+        $('#email').html(user.email);
         var db = firebase.firestore();
         var docRef = db.collection("users").doc(user.uid);
         docRef.get().then(function(doc) {
@@ -120,12 +130,16 @@
               $('.loader-wrapper').hide();
             } else {
               alert('Du bist kein registrierter Telefonist!');
-              signOut();
+              firebase.auth().signOut().then(function() {
+                window.location.replace('/dashboard/auth/');
+              });
               window.location.replace('/dashboard/auth/');
             }
           } else {
             console.log("No such document!");
-            signOut();
+            firebase.auth().signOut().then(function() {
+              window.location.replace('/dashboard/auth/');
+            });
             window.location.replace('/dashboard/auth/');
           }
         }).catch(function(error) {
@@ -136,10 +150,80 @@
       }
     });
 
-    function signOut() {
-      firebase.auth().signOut().then(function() {
-        window.location.replace('/dashboard/auth/');
+
+    $(".form-searchEntry").submit(function(event) {
+      event.preventDefault();
+      $('.loader-wrapper').css('display', 'flex');
+      $('.form-searchEntry-wrapper *').hide();
+      $('.form-searchEntry-wrapper').hide();
+      showEntries(
+        $('.form-searchEntry input[name="fname"]').val(),
+        $('.form-searchEntry input[name="lname"]').val(),
+        parseInt($('.form-searchEntry input[name="zip"]').val()),
+      );
+      $('.loader-wrapper').hide();
+    });
+
+    function showEntries(fname, lname, zip) {
+      firebase.functions().httpsCallable('telephonerGetTasks')({
+        fname: fname,
+        lname: lname,
+        zip: zip
+      }).then(function(res) {
+        if (res.data.state === 'ok') {
+          $('#zip p').html(zip);
+          $('.modal-showEntry .heading span').html(fname + ' ' + lname)
+          for (index in res.data.data) {
+            const ref = res.data.data[index];
+            $('.modal-showEntry').append(
+              generateEntryBlock(
+                index + 1,
+                ref.street,
+                ref.number,
+                ref.delivered,
+                ref.payed
+              )
+            )
+          }
+          $('.modal-showEntry-wrapper').css('display', 'flex')
+        } else {
+          alert('Fehler: Ungueltige Antwort erhalten')
+        }
+      }).catch(function(error) {
+        console.log(error);
+        alert(error);
       });
+    }
+
+
+    function generateEntryBlock(num, street, streetnum, alreadyDelivered, userPayed) {
+      var delivered, payed;
+      if (alreadyDelivered === true) {
+        delivered = 'Ja';
+      } else {
+        delivered = 'Nein';
+      }
+      if (userPayed === true) {
+        payed = 'Ja';
+      } else {
+        payed = 'Nein';
+      }
+      return '<hr>' +
+        '<section id="' + num + '">' +
+        '<h2 style="margin-bottom: 5px;">Auftrag Nr. <span>' + num + '</span></h2>' +
+        '<section id="street">' +
+        '<h3>Straße</h3>' +
+        '<p>' + street + ' ' + streetnum + '</p>' +
+        '</section>' +
+        '<section id="delivered">' +
+        '<h3>Zugestellt</h3>' +
+        '<p>' + delivered + '</p>' +
+        '</section>' +
+        '<section id="payed">' +
+        '<h3>Bezahlt</h3>' +
+        '<p>' + payed + '</p>' +
+        '</section>' +
+        '</section>';
     }
   </script>
 

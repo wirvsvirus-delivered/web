@@ -46,6 +46,17 @@
 
 .dashboard-topbar-actions {
   list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#email {
+  color: #555;
+}
+
+.dashboard-topbar-actions li {
+  margin-right: 10px;
 }
 
 .dashboard-topbar-actions button {
@@ -104,7 +115,6 @@
 .dashboard-body-button-wrapper button {
   background: #ab1c48;
   width: 100%;
-  height: 25vh;
   border-radius: 5px;
   flex-direction: column;
   justify-content: center;
@@ -113,57 +123,6 @@
 .dashboard-body-button-wrapper button i {
   font-size: 40px;
   margin-bottom: 5px
-}
-
-.dashboard-body-button-wrapper button span {
-  font-size: 20px;
-  margin-top: 5px;
-}
-
-.dashboard-floatingActionButton-wrapper {
-  width: 80vw;
-  height: 70px;
-  max-width: 1000px;
-  left: auto;
-  right: auto;
-  bottom: 10vh;
-  position: fixed;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: row;
-}
-
-.dashboard-floatingActionButton-wrapper, .dashboard-floatingActionButton-wrapper * {
-  z-index: 80;
-}
-
-.dashboard-floatingActionButton {
-  margin-right: 20px;
-  height: 50px;
-  border-radius: 25px;
-  background: #ab1c48;
-  -webkit-box-shadow: 0px 0px 25px 10px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 0px 25px 10px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 0px 25px 10px rgba(0, 0, 0, 0.25);
-}
-
-td.toolbar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-td.toolbar button {
-  display: flex;
-  border-radius: 19px;
-  padding: 4px 14px;
-  background: #ab1c48;
-  margin-right: 5px;
-  margin-top: 3px;
-}
-
-td.toolbar button i {
-  margin-right: 10px;
 }
 
 .modal {
@@ -183,6 +142,13 @@ td.toolbar button i {
 
 .modal, .backdrop, .loader-wrapper {
   animation: opacity-1 0.2s ease-in;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @keyframes opacity-1 {
@@ -206,11 +172,4 @@ td.toolbar button i {
     overflow-y: auto;
     max-width: none;
   }
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 }
