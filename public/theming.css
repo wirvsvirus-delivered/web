@@ -1,0 +1,69 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+.brand-text {
+  background: linear-gradient(to right, var(--accent-color), var(--theme-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.col-md-3 center i {
+  font-size: 60px;
+  margin-top:30px
+}
+
+.brand-dot {
+  background: linear-gradient(to bottom, var(--accent-color), var(--theme-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (max-width: 768px) {
+  .banner-fullscreen h1 {
+    font-size: 36px;
+  }
+
+  .banner-fullscreen p {
+    text-align: center;
+    line-break: auto;
+    width: 100vw;
+    padding: 0px 10px;
+  }
+}
+
+.banner-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right:0;
+  left: 0;
+  z-index: 10;
+  background: #f8f9fa;
+}
+
+.banner-fullscreen h1 {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loader-stripe {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 10px;
+  background: var(--accent-color);
+  z-index: 100;
+  animation: pulse 1s infinite ease-out;
+}
+
+@keyframes pulse {
+  50% {
+    background: var(--theme-color);
+  }
+}
