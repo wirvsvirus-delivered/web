@@ -2,17 +2,24 @@
 <html lang="en">
 
 <head>
+  <!-- Grundlegendes -->
   <meta charset="utf-8">
+  <title>delivered</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Abhängigkeiten -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="variables.css">
   <link rel="stylesheet" href="theming.css">
   <link rel="shortcut icon" href="dashboard/img/favicon.png">
-  <title>delivered</title>
 </head>
 
 <body onload="openPage('index')">
+
+  <!-- Der Loader -->
   <div class="loader-stripe"></div>
+
+  <!-- Die Navigationsleiste (Bootstrap) -->
   <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light" style="z-index:50">
     <div class="container">
       <a class="navbar-brand brand-text" href="javascript:openPage('index')">
@@ -50,15 +57,26 @@
       </div>
     </div>
   </nav>
+
+  <!-- Wenn man kein Javascript aktiviert hat -> Meldung -->
+  <noscript>
+    <div class="jumbotron">
+      <h1 class="display-1">Java<wbr>script ist deaktiviert</h1>
+    </div>
+  </noscript>
+
+  <!-- Inhalt d. Seite, wird durch Skript geladen-->
   <div class="content">
 
   </div>
 
 
+  <!-- Skript-Abhängigkeiten -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+  <!-- Skript, um Seiten zu laden -->
   <script>
     function openPage(page) {
       $('.loader-stripe').show();

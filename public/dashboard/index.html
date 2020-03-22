@@ -2,17 +2,23 @@
 <html lang="de" dir="ltr">
 
 <head>
+  <!-- Grundlegendes -->
   <meta charset="utf-8">
   <title>delivered Dashboard</title>
+
+  <!-- Abhängigkeiten -->
   <link href="img/favicon.png" rel="shortcut icon">
   <link rel="stylesheet" href="css/master.css">
 </head>
 
 <body>
 
+  <!-- Loader -->
   <div class="loader-wrapper" style="display: flex;">
     <div class="loader"></div>
   </div>
+
+  <!-- Neuer-Eintrag-Dialog -->
   <div class="modal-wrapper modal-newEntry-wrapper">
     <div class="modal modal-newEntry">
       <h2 class="heading">Neuer Auftrag
@@ -43,6 +49,8 @@
       </form>
     </div>
   </div>
+
+  <!-- Eintrag-suchen-Dialog -->
   <div class="modal-wrapper modal-searchEntry-wrapper">
     <div class="modal modal-searchEntry">
       <h2 class="heading">Auftr&auml;ge anzeigen
@@ -58,6 +66,8 @@
       </form>
     </div>
   </div>
+
+  <!-- Eintrag-anzeigen-Dialog -->
   <div class="modal-wrapper modal-showEntry-wrapper">
     <div class="modal modal-showEntry">
       <h2 class="heading">Auftr&auml;ge f&uuml;r <span></span>
@@ -75,8 +85,11 @@
     </div>
   </div>
 
+  <!-- Das Dashboard -->
   <div class="dashboard-wrapper">
     <div class="dashboard">
+
+      <!-- Die Leiste oben -->
       <div class="dashboard-topbar">
         <div class="dashboard-topbar-brand heading"><img src="img/icon.png" alt="delivered"> &nbsp;Dashboard</div>
         <ul class="dashboard-topbar-actions">
@@ -92,6 +105,7 @@
           </li>
         </ul>
       </div>
+      <!-- Der Hauptteil mit den Knöpfen -->
       <div class="dashboard-body">
         <h1 class="heading" style="padding-top: 40px;">Auftr&auml;ge</h1>
         <div class="dashboard-body-button-wrapper">
@@ -112,6 +126,7 @@
     </div>
   </div>
 
+  <!-- Skripte -->
   <script src="/__/firebase/7.12.0/firebase-app.js"></script>
   <script src="/__/firebase/7.12.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.12.0/firebase-firestore.js"></script>
@@ -119,6 +134,8 @@
   <script src="/__/firebase/init.js"></script>
   <script src="js/jquery.js"></script>
   <script>
+
+    // Überprüft, ob Nuther authentifiziert & Telefonist ist
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         $('#email').html(user.email);
@@ -150,7 +167,8 @@
       }
     });
 
-
+    // Wenn das Eintrag-Suchformular abgeschickt wird, such nach Einträgen
+    // in der DB und gib sie aus
     $(".form-searchEntry").submit(function(event) {
       event.preventDefault();
       $('.loader-wrapper').css('display', 'flex');
@@ -164,6 +182,7 @@
       $('.loader-wrapper').hide();
     });
 
+    // Zeigt Einträge an
     function showEntries(fname, lname, zip) {
       firebase.functions().httpsCallable('telephonerGetTasks')({
         fname: fname,
@@ -195,7 +214,7 @@
       });
     }
 
-
+    // Generiert Eintrag-Übersicht
     function generateEntryBlock(num, street, streetnum, alreadyDelivered, userPayed) {
       var delivered, payed;
       if (alreadyDelivered === true) {

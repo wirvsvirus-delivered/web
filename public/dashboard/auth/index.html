@@ -2,20 +2,31 @@
 <html lang="de" dir="ltr">
 
 <head>
+
+  <!-- Grundlegendes -->
   <meta charset="utf-8">
   <title>delivered Dashboard</title>
+
+  <!-- styling ressourcen & icon -->
   <link rel="shortcut icon" href="../img/favicon.png">
   <link rel="stylesheet" href="../css/master.css">
 </head>
 
 <body>
 
+  <!-- Der Loader -->
   <div class="loader-wrapper">
     <div class="loader"></div>
   </div>
+
+  <!-- Das Anmeldeformular -->
   <div class="form-signin-wrapper">
     <form class="form-signin">
-      <h1 class="heading"><img src="../img/icon.png" alt="delivered"> Dashboard</h1>
+      <!-- Titel mit Logo, .heading-class fuer Schriftart -->
+      <h1 class="heading">
+        <img src="../img/icon.png" alt="delivered">
+        Dashboard
+      </h1>
       <input required type="email" placeholder="E-Mail-Adresse">
       <input required type="password" placeholder="Passwort">
       <button type="submit">
@@ -25,29 +36,40 @@
     </form>
   </div>
 
+  <!-- Benötigte Skripte -->
   <script src="/__/firebase/7.12.0/firebase-app.js"></script>
   <script src="/__/firebase/7.12.0/firebase-auth.js"></script>
   <script src="/__/firebase/init.js"></script>
   <script src="../js/jquery.js"></script>
   <script>
+    // Wenn du Angemeldet bist, leite weiter zum Dashboard
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         window.location.replace('/dashboard/');
       }
     });
+
+    // Wenn das Formular abgeschickt wird, ...
     $("form").submit(function(event) {
+      // Stoppe Neuladen
       event.preventDefault();
+      // Zeige Loader
       $('.loader-wrapper').css('display', 'flex');
       firebase.auth().onAuthStateChanged(function(user) {
+        // Ueberpruefe Anmeldung
         if (user) {
+          // Bleib dauerhaft angemeldet
           firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(function() {
+              // .. Und Leite zum Dashboard weiter
               window.location.replace('/dashboard/');
             })
+            // Catche evtl.e Fehler
             .catch(function(error) {
               alert('Fehler:' + error.code + ' ' + error.message);
             });
         } else {
+          // Melde dich mit E-Mail und Password an
           firebase.auth().signInWithEmailAndPassword(
             $('input[type="email"]').val(),
             $('input[type="password"]').val()

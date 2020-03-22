@@ -1,3 +1,4 @@
+/* Zentriert das Anmeldeformular */
 .form-signin-wrapper {
   display: flex;
   width: 100vw;
@@ -8,6 +9,22 @@
   padding: 0px 5px;
 }
 
+/* Grundlegendes Input-Styling */
+input {
+  border: 1px solid #999;
+  font-family: 'Nunito', sans-serif;
+}
+
+input, form button {
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  outline: 0;
+  font-size: 15px;
+}
+
+/* Das Anmeldeformular */
 .form-signin {
   display: flex;
   flex-direction: column;
@@ -18,10 +35,12 @@
   padding: 20px;
 }
 
+/* Kein Abstand unter Komponenten des Formulars */
 .form-signin input, .form-signin h1 {
   margin-bottom: 0;
 }
 
+/* Titel-Styling */
 .form-signin h1 {
   font-size: 40px;
   width: 100%;
@@ -37,6 +56,7 @@
   width: 40px;
 }
 
+/* Korrekte Anzeige von Mehrfachauswahlen */
 input[type="radio"] {
   margin: 0;
   width: auto;

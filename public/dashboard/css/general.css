@@ -1,3 +1,4 @@
+/* Grundlegendes Styling für alle Komponenten */
 * {
   box-sizing: border-box;
   appearance: none;
@@ -5,32 +6,18 @@
   font-family: 'Lato', sans-serif
 }
 
+/* .heading ist für
+   ALLE Überschriften, auch die, die nach
+  HTML-Standart keine sind. Es ändert nur die Schriftart
+*/
 .heading {
   font-family: 'Nunito', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Entfert unnötigen Abstand bei einigen Elementen */
+h1, h2, h3, h4, h5, h6, body, html {
   margin: 0;
   padding: 0;
-}
-
-body, html {
-  margin: 0;
-  padding: 0;
-}
-
-input {
-  border: 1px solid #999;
-  font-family: 'Nunito', sans-serif;
-}
-
-input, form button {
-  border-radius: 5px;
-  padding: 10px;
-  width: 100%;
-  margin-top: 10px;
-  outline: 0;
-  font-size: 15px;
 }
 
 button {
@@ -47,10 +34,12 @@ button {
   font-family: 'Nunito', sans-serif;
 }
 
+/* passende Mauszeiger bei anklickbaren Elementen */
 button, *[onclick] {
   cursor: pointer;
 }
 
+/* Zentiert die Loader/Dialoge und gibt ihnen einen Hintergrund */
 .loader-wrapper, .modal-wrapper {
   position: fixed;
   top: 0;
@@ -72,6 +61,7 @@ button, *[onclick] {
   background: #fff;
 }
 
+/* Die Ladeanimation */
 .loader {
   width: 50px;
   height: 50px;

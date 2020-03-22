@@ -1,3 +1,9 @@
+/*
+  DASHBOARD
+  Das Dashboard ist für PCs optimiert
+*/
+
+/* Zentriert Dashboard */
 .dashboard-wrapper {
   display: flex;
   width: 100vw;
@@ -7,6 +13,7 @@
   background: #f5f5f5;
 }
 
+/* Das Dashboard */
 .dashboard {
   width: 80vw;
   max-width: 1000px;
@@ -15,6 +22,7 @@
   border-radius: 10px;
 }
 
+/* Die Leiste oben */
 .dashboard-topbar {
   height: 80px;
   width: 100%;
@@ -30,6 +38,7 @@
   box-shadow: 0px 22px 25px -5px rgba(0, 0, 0, 0.25);
 }
 
+/* Das Dashboard-Logo */
 .dashboard-topbar-brand {
   display: flex;
   flex-direction: row;
@@ -39,26 +48,32 @@
   font-size: 30px;
 }
 
+/* Das Bild im Dashboard-Logo */
 .dashboard-topbar-brand img {
   height: 60px;
   margin-right: 10px;
 }
 
-.dashboard-topbar-actions {
+/* Die Liste im Dashboard, in der der Logout-Button
+   und ein kleines Textfeld mit 'angemeldet als ...' enthalten ist */
+.dashboard-topbar ul {
   list-style: none;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
+/* Der E-Mail-Adresse in der Leiste oben eine andere Farbe geben */
 #email {
   color: #555;
 }
 
+/* Abstand zwischen Objekten oben */
 .dashboard-topbar-actions li {
   margin-right: 10px;
 }
 
+/* Logout-Button */
 .dashboard-topbar-actions button {
   margin-right: 20px;
   height: 40px;
@@ -70,36 +85,18 @@
   margin-right: 10px
 }
 
+/* Der Inhalt des Dashboards */
 .dashboard-body {
   padding: 0px 20px;
 }
 
+/* Die Überschrift orange unterstreichen */
 .dashboard-body h1 {
   text-decoration: underline;
   text-decoration-color: #f08221;
 }
 
-.dashboard-body table {
-  width: 100%;
-  border-spacing: 0;
-  overflow-x: auto;
-}
-
-.dashboard-body table thead td {
-  text-decoration: underline;
-  text-decoration-color: #ab1c48;
-  font-size: 20px
-}
-
-.dashboard-body table td {
-  border-right: 1px solid #ddd;
-  padding: 2px 6px;
-}
-
-.dashboard-body table * td:last-child {
-  border-right: none;
-}
-
+/* Die "Verpackung" für die Knopf-Leiste in der Mitte des Dashboards */
 .dashboard-body-button-wrapper {
   display: flex;
   flex-direction: row;
@@ -107,11 +104,13 @@
   justify-content: space-between;
 }
 
+/* Ein bisschen Abstand zwischen den einzelnen Knöpfen */
 .dashboard-body-button-wrapper div {
   width: 50%;
   padding: 10px;
 }
 
+/* Die Großen Knöpfe im Dashboard */
 .dashboard-body-button-wrapper button {
   background: #ab1c48;
   width: 100%;
@@ -125,6 +124,7 @@
   margin-bottom: 5px
 }
 
+/* Die Dialoge für bestimmte Aktionen */
 .modal {
   width: 100%;
   max-width: 420px;
@@ -140,15 +140,10 @@
   z-index: 110;
 }
 
-.modal, .backdrop, .loader-wrapper {
-  animation: opacity-1 0.2s ease-in;
-}
 
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+/* Die Animation für Loader & Dialoge. */
+.modal, .loader-wrapper {
+  animation: opacity-1 0.2s ease-in;
 }
 
 @keyframes opacity-1 {
@@ -161,8 +156,17 @@
   }
 }
 
+/* Genutzt, um 2 Input in eine Reihe zu bringen. Eigentlich allgemein verwendbar */
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Passt Dialoge für kleinere Bildschirme an */
 @media only screen and (max-width: 768px) {
-  .modal-newEntry {
+  .modal {
     top: 10px;
     right: 10px;
     left: 10px;

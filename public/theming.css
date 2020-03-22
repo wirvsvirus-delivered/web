@@ -1,13 +1,11 @@
+/* Icons */
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+/* Farbverläufe in bestimmen Objekten */
 .brand-text {
   background: linear-gradient(to right, var(--accent-color), var(--theme-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.col-md-3 center i {
-  font-size: 60px;
-  margin-top:30px
 }
 
 .brand-dot {
@@ -16,19 +14,13 @@
   -webkit-text-fill-color: transparent;
 }
 
-@media only screen and (max-width: 768px) {
-  .banner-fullscreen h1 {
-    font-size: 36px;
-  }
-
-  .banner-fullscreen p {
-    text-align: center;
-    line-break: auto;
-    width: 100vw;
-    padding: 0px 10px;
-  }
+/* Große Icons in Reihen */
+.col-md-3 center i {
+  font-size: 60px;
+  margin-top:30px
 }
 
+/* Vollbildschirm-views */
 .banner-fullscreen {
   width: 100vw;
   height: 100vh;
@@ -40,10 +32,12 @@
   background: #f8f9fa;
 }
 
+/* Zentrierter Text */
 .banner-fullscreen h1 {
   text-align: center;
 }
 
+/* Zentierungsklasse */
 .flex-center {
   display: flex;
   justify-content: center;
@@ -51,6 +45,7 @@
   flex-direction: column;
 }
 
+/* Lade-Streifen und Animation */
 .loader-stripe {
   position: fixed;
   bottom: 0;
@@ -65,5 +60,19 @@
 @keyframes pulse {
   50% {
     background: var(--theme-color);
+  }
+}
+
+/* Optimierungen für mobile Bildschirme */
+@media only screen and (max-width: 768px) {
+  .banner-fullscreen h1 {
+    font-size: 36px;
+  }
+
+  .banner-fullscreen p {
+    text-align: center;
+    line-break: auto;
+    width: 100vw;
+    padding: 0px 10px;
   }
 }
