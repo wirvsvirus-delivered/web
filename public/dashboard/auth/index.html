@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>delivered Dashboard</title>
+  <link rel="shortcut icon" href="../img/favicon.png">
+  <link rel="stylesheet" href="../css/master.css">
+</head>
+
+<body>
+
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+  <div class="form-signin-wrapper">
+    <form class="form-signin">
+      <h1 class="heading"><img src="../img/icon.png" alt="delivered"> Dashboard</h1>
+      <input required type="email" placeholder="E-Mail-Adresse">
+      <input required type="password" placeholder="Passwort">
+      <button type="submit">
+        Anmelden
+        <i class="material-icons md-18">launch</i>
+      </button>
+    </form>
+  </div>
+
+  <script src="/__/firebase/7.12.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.12.0/firebase-auth.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="../js/jquery.js"></script>
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        window.location.replace('/dashboard/');
+      }
+    });
+    $("form").submit(function(event) {
+      event.preventDefault();
+      $('.loader-wrapper').css('display', 'flex');
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(function() {
+              window.location.replace('/dashboard/');
+            })
+            .catch(function(error) {
+              alert('Fehler:' + error.code + ' ' + error.message);
+            });
+        } else {
+          firebase.auth().signInWithEmailAndPassword(
+            $('input[type="email"]').val(),
+            $('input[type="password"]').val()
+          ).catch(function(error) {
+            alert('Fehler:' + error.code + ' ' + error.message);
+          });
+        };
+      });
+    });
+  </script>
+
+</body>
+
+</html>
