@@ -85,7 +85,7 @@
             <span id="email"></span>
           </li>
           <li>
-            <button onclick="signOut()" style="background:#ab1c48">
+            <button onclick="firebase.auth().signOut().then(function(){window.location.replace('/dashboard/auth/')})" style="background:#ab1c48">
               <i class="material-icons">exit_to_app</i>
               Abmelden
             </button>
