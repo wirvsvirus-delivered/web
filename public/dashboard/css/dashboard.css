@@ -140,6 +140,10 @@
   z-index: 110;
 }
 
+.modal {
+  max-height: 80vh;
+  overflow-y: scroll;
+}
 
 /* Die Animation für Loader & Dialoge. */
 .modal, .loader-wrapper {
@@ -164,12 +168,17 @@
   justify-content: space-between;
 }
 
+.form-newEntry-item {
+  margin-bottom: 4px;
+}
+
 /* Passt Dialoge für kleinere Bildschirme an */
 @media only screen and (max-width: 768px) {
   .modal {
     top: 10px;
     right: 10px;
     left: 10px;
+    max-height: none;
     bottom: 10px;
     position: fixed;
     width: auto;

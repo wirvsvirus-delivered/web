@@ -70,6 +70,21 @@ button, *[onclick] {
   animation: loader 1s ease-in infinite;
 }
 
+.btn-text {
+  background: none;
+  color: #ab1c48;
+  padding: 0px;
+  border-radius: 0px;
+  display: inline-block;
+  width: auto;
+  box-shadow: none !important;
+}
+
+.btn-text-underlined {
+  border-bottom: 1px solid #ab1c48;
+  padding-bottom: 2px;
+}
+
 @keyframes loader {
   50% {
     border-radius: 0%;

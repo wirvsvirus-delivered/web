@@ -42,6 +42,20 @@
   <script src="/__/firebase/init.js"></script>
   <script src="../js/jquery.js"></script>
   <script>
+
+    function dialogue(id, title, content) {
+      $('body').append('<div class="modal-wrapper" style="display: flex" id="' +
+      id +
+      '"><div class="modal"><h2 class="heading">' +
+      title +
+      '<button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$(\'#' +
+      id +
+      '\').remove();"><i class="material-icons md-18">close</i></button></h2>' +
+      '<p>' +
+      content +
+      '</p></div></div>')
+    }
+
     // Wenn du Angemeldet bist, leite weiter zum Dashboard
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -66,7 +80,8 @@
             })
             // Catche evtl.e Fehler
             .catch(function(error) {
-              alert('Fehler:' + error.code + ' ' + error.message);
+              dialogue('persistenceError', 'Fehler: ' + error.code, error.message)
+              $('.loader-wrapper').hide();
             });
         } else {
           // Melde dich mit E-Mail und Password an
@@ -74,10 +89,16 @@
             $('input[type="email"]').val(),
             $('input[type="password"]').val()
           ).catch(function(error) {
-            alert('Fehler:' + error.code + ' ' + error.message);
+            dialogue('authError', 'Fehler: ' + error.code, error.message)
+            $('.loader-wrapper').hide();
           });
         };
       });
+    });
+    $(document).on('keydown', function(event) {
+      if (event.key == "Escape") {
+        $('.modal-wrapper').hide();
+      }
     });
   </script>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <title>delivered Dashboard</title>
 
-  <!-- Abhängigkeiten -->
+  <!-- Style-Abhängigkeiten -->
   <link href="img/favicon.png" rel="shortcut icon">
   <link rel="stylesheet" href="css/master.css">
 </head>
@@ -23,28 +23,56 @@
     <div class="modal modal-newEntry">
       <h2 class="heading">Neuer Auftrag
         <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-newEntry-wrapper').hide();">
-          <i class="material-icons md-18">highlight_off</i>
+          <i class="material-icons md-18">close</i>
         </button>
       </h2>
       <form class="form-newEntry">
-        <input required type="text" name="fname" placeholder="Vorname">
-        <input required type="text" name="lname" placeholder="Nachname">
-        <input required type="tel" name="tel" placeholder="Telefonnummer">
-        <input required type="number" name="zip" placeholder="PLZ">
-        <div class="row">
-          <input style="width:70%" required type="text" name="street" placeholder="Stra&szlig;e">
-          <input style="width:25%" required type="text" name="num" placeholder="Hausnr.">
+        <div>
+          <h3>Grundlegendes</h3>
+          <input required type="text" name="fname" placeholder="Vorname">
+          <input required type="text" name="lname" placeholder="Nachname">
+          <input required type="tel" name="tel" placeholder="Telefonnummer">
         </div>
-        <input type="text" name="adressInfo" placeholder="Zus&auml;tzliche Adressinfo">
-        <section style="margin-top:10px;">Altersbeschr&auml;nkung<br>
-          <input required type="radio" name="age" value="18" id="volljaehrig">&nbsp;
-          <label for="volljaehrig">Ab 16</label><br>
-          <input required type="radio" name="age" value"16" id="sechzehn">&nbsp;
-          <label for="sechzehn">Ab 18</label><br>
-          <input required type="radio" name="age" value"0" id="keine">&nbsp;
-          <label for="keine">Keine</label><br>
-        </section>
-        <input required type="datetime" name="data" placeholder="Data">
+        <div>
+          <h3>Adresse</h3>
+          <div class="row">
+            <input style="width:70%" required type="text" name="street" placeholder="Stra&szlig;e">
+            <input style="width:25%" required type="text" name="num" placeholder="Hausnr.">
+          </div>
+          <input required type="number" name="zip" maxlength="5" placeholder="PLZ">
+          <input type="text" name="addressInfo" placeholder="Zus&auml;tzliche Adressinfo">
+        </div>
+        <div>
+          <h3>Geburtstag</h3>
+          <div class="row">
+            <input style="width:30%" name="day" type="number" maxlength="2" placeholder="TT (Tag)">
+            <input style="width:30%" name="month" type="number" maxlength="2" placeholder="MM (Monat)">
+            <input style="width:30%" name="year" type="number" maxlenght="4" placeholder="JJJJ (Jahr)">
+          </div>
+        </div>
+        <div>
+          <h3>Altersbeschr&auml;nkung</h3>
+          <div>
+            <input type="checkbox" name="over16">
+            <label for="over16">Ab 16</label>
+          </div>
+          <div>
+            <input type="checkbox" name="over18">
+            <label for="over18">Ab 18</label>
+          </div>
+        </div>
+        <div>
+          <h3>Artikel</h3>
+          <div class="form-newEntry-items">
+            <div class="form-newEntry-item row" id="form-newEntry-item-1">
+              <input required style="width:30%" type="text" class="form-newEntry-item-name" placeholder="Name">
+              <input required style="width:20%" type="text" class="form-newEntry-item-amount" placeholder="Menge">
+              <input style="width:35%" type="text" class="form-newEntry-item-info" placeholder="Info">
+              <button onclick="$('#form-newEntry-item-1').remove();itemsInCart-=1" type="button" class="btn-text"><i class="material-icons">delete_outline</i></button>
+            </div>
+          </div>
+          <button onclick="itemsInCart+=1;createNewEntryItem()" type="button" class="btn-text btn-text-underlined">Neuer Artikel</button>
+        </div>
         <button type="submit">Absenden <i class="material-icons md-18">send</i></button>
       </form>
     </div>
@@ -55,13 +83,13 @@
     <div class="modal modal-searchEntry">
       <h2 class="heading">Auftr&auml;ge anzeigen
         <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-searchEntry-wrapper').hide();">
-          <i class="material-icons md-18">highlight_off</i>
+          <i class="material-icons md-18">close</i>
         </button>
       </h2>
       <form class="form-searchEntry">
         <input required type="text" name="fname" placeholder="Vorname">
         <input required type="text" name="lname" placeholder="Nachname">
-        <input required type="number" name="zip" placeholder="PLZ">
+        <input required type="number" name="zip" placeholder="PLZ" maxlength="5">
         <button type="submit">&Ouml;ffnen <i class="material-icons md-18">launch</i></button>
       </form>
     </div>
@@ -71,8 +99,8 @@
   <div class="modal-wrapper modal-showEntry-wrapper">
     <div class="modal modal-showEntry">
       <h2 class="heading">Auftr&auml;ge f&uuml;r <span></span>
-        <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-showEntry-wrapper').hide();">
-          <i class="material-icons md-18">highlight_off</i>
+        <button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$('.modal-showEntry-wrapper').hide();$('.showEntrySection').remove()">
+          <i class="material-icons md-18">close</i>
         </button>
       </h2>
       <div id="entries">
@@ -133,118 +161,7 @@
   <script src="/__/firebase/7.12.0/firebase-functions.js"></script>
   <script src="/__/firebase/init.js"></script>
   <script src="js/jquery.js"></script>
-  <script>
-
-    // Überprüft, ob Nuther authentifiziert & Telefonist ist
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        $('#email').html(user.email);
-        var db = firebase.firestore();
-        var docRef = db.collection("users").doc(user.uid);
-        docRef.get().then(function(doc) {
-          if (doc.exists) {
-            if (doc.data().type === 'telephoner') {
-              $('.loader-wrapper').hide();
-            } else {
-              alert('Du bist kein registrierter Telefonist!');
-              firebase.auth().signOut().then(function() {
-                window.location.replace('/dashboard/auth/');
-              });
-              window.location.replace('/dashboard/auth/');
-            }
-          } else {
-            console.log("No such document!");
-            firebase.auth().signOut().then(function() {
-              window.location.replace('/dashboard/auth/');
-            });
-            window.location.replace('/dashboard/auth/');
-          }
-        }).catch(function(error) {
-          console.log("Error getting document:", error);
-        });
-      } else {
-        window.location.replace('/dashboard/auth/');
-      }
-    });
-
-    // Wenn das Eintrag-Suchformular abgeschickt wird, such nach Einträgen
-    // in der DB und gib sie aus
-    $(".form-searchEntry").submit(function(event) {
-      event.preventDefault();
-      $('.loader-wrapper').css('display', 'flex');
-      $('.form-searchEntry-wrapper *').hide();
-      $('.form-searchEntry-wrapper').hide();
-      showEntries(
-        $('.form-searchEntry input[name="fname"]').val(),
-        $('.form-searchEntry input[name="lname"]').val(),
-        parseInt($('.form-searchEntry input[name="zip"]').val()),
-      );
-      $('.loader-wrapper').hide();
-    });
-
-    // Zeigt Einträge an
-    function showEntries(fname, lname, zip) {
-      firebase.functions().httpsCallable('telephonerGetTasks')({
-        fname: fname,
-        lname: lname,
-        zip: zip
-      }).then(function(res) {
-        if (res.data.state === 'ok') {
-          $('#zip p').html(zip);
-          $('.modal-showEntry .heading span').html(fname + ' ' + lname)
-          for (index in res.data.data) {
-            const ref = res.data.data[index];
-            $('.modal-showEntry').append(
-              generateEntryBlock(
-                index + 1,
-                ref.street,
-                ref.number,
-                ref.delivered,
-                ref.payed
-              )
-            )
-          }
-          $('.modal-showEntry-wrapper').css('display', 'flex')
-        } else {
-          alert('Fehler: Ungueltige Antwort erhalten')
-        }
-      }).catch(function(error) {
-        console.log(error);
-        alert(error);
-      });
-    }
-
-    // Generiert Eintrag-Übersicht
-    function generateEntryBlock(num, street, streetnum, alreadyDelivered, userPayed) {
-      var delivered, payed;
-      if (alreadyDelivered === true) {
-        delivered = 'Ja';
-      } else {
-        delivered = 'Nein';
-      }
-      if (userPayed === true) {
-        payed = 'Ja';
-      } else {
-        payed = 'Nein';
-      }
-      return '<hr>' +
-        '<section id="' + num + '">' +
-        '<h2 style="margin-bottom: 5px;">Auftrag Nr. <span>' + num + '</span></h2>' +
-        '<section id="street">' +
-        '<h3>Straße</h3>' +
-        '<p>' + street + ' ' + streetnum + '</p>' +
-        '</section>' +
-        '<section id="delivered">' +
-        '<h3>Zugestellt</h3>' +
-        '<p>' + delivered + '</p>' +
-        '</section>' +
-        '<section id="payed">' +
-        '<h3>Bezahlt</h3>' +
-        '<p>' + payed + '</p>' +
-        '</section>' +
-        '</section>';
-    }
-  </script>
+  <script src="js/master.js"></script>
 
 </body>
 

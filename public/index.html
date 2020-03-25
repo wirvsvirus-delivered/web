@@ -84,7 +84,7 @@
       fetch('pages/' + page + '.html').then(function(response) {
         response.text().then(function(text) {
           $('.content').html(text);
-          $('.loader-stripe').hide()
+          $('.loader-stripe').hide();
         });
       });
     }

@@ -22,6 +22,14 @@ input, form button {
   margin-top: 10px;
   outline: 0;
   font-size: 15px;
+  transition: 0.3s box-shadow;
+}
+
+input:focus, button:active {
+  -webkit-box-shadow: 0px 0px 0px 3px rgba(171, 28, 72, 0.5);
+  -moz-box-shadow: 0px 0px 0px 3px rgba(171, 28, 72, 0.5);
+  box-shadow: 0px 0px 0px 3px rgba(171, 28, 72, 0.5);
+  border-color: #ab1c48
 }
 
 /* Das Anmeldeformular */
@@ -38,6 +46,18 @@ input, form button {
 /* Kein Abstand unter Komponenten des Formulars */
 .form-signin input, .form-signin h1 {
   margin-bottom: 0;
+}
+
+form h3 {
+  margin-top: 10px;
+  border-top: 1px solid #c5c5c5;
+  padding-top: 5px;
+}
+
+form h4 {
+  margin-top: 12px;
+  font-size: 17px;
+  border-bottom: 1px dotted #777;
 }
 
 /* Titel-Styling */
@@ -57,7 +77,7 @@ input, form button {
 }
 
 /* Korrekte Anzeige von Mehrfachauswahlen */
-input[type="radio"] {
-  margin: 0;
+input[type="checkbox"] {
+  margin-right: 5px;
   width: auto;
 }
