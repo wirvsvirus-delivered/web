@@ -29,25 +29,25 @@
       <form class="form-newEntry">
         <div>
           <h3>Grundlegendes</h3>
-          <input required type="text" name="fname" placeholder="Vorname">
-          <input required type="text" name="lname" placeholder="Nachname">
-          <input required type="tel" name="tel" placeholder="Telefonnummer">
+          <input required type="text" name="fname" placeholder="Vorname" max="100">
+          <input required type="text" name="lname" placeholder="Nachname" max="100">
+          <input required type="tel" name="tel" placeholder="Telefonnummer" max="50">
         </div>
         <div>
           <h3>Adresse</h3>
           <div class="row">
-            <input style="width:70%" required type="text" name="street" placeholder="Stra&szlig;e">
-            <input style="width:25%" required type="text" name="num" placeholder="Hausnr.">
+            <input style="width:70%" required type="text" name="street" placeholder="Stra&szlig;e" max="100">
+            <input style="width:25%" required type="text" name="num" placeholder="Hausnr." max="5">
           </div>
-          <input required type="number" name="zip" maxlength="5" placeholder="PLZ">
-          <input type="text" name="addressInfo" placeholder="Zus&auml;tzliche Adressinfo">
+          <input required type="number" name="zip" max="5" placeholder="PLZ">
+          <input type="text" name="addressInfo" placeholder="Zus&auml;tzliche Adressinfo" max="200">
         </div>
         <div>
           <h3>Geburtstag</h3>
           <div class="row">
-            <input style="width:30%" name="day" type="number" maxlength="2" placeholder="TT (Tag)">
-            <input style="width:30%" name="month" type="number" maxlength="2" placeholder="MM (Monat)">
-            <input style="width:30%" name="year" type="number" maxlenght="4" placeholder="JJJJ (Jahr)">
+            <input required style="width:30%" name="day" type="number" max="2" placeholder="TT (Tag)">
+            <input required style="width:30%" name="month" type="number" max="2" placeholder="MM (Monat)">
+            <input required style="width:30%" name="year" type="number" maxlenght="4" placeholder="JJJJ (Jahr)">
           </div>
         </div>
         <div>
@@ -89,7 +89,7 @@
       <form class="form-searchEntry">
         <input required type="text" name="fname" placeholder="Vorname">
         <input required type="text" name="lname" placeholder="Nachname">
-        <input required type="number" name="zip" placeholder="PLZ" maxlength="5">
+        <input required type="number" name="zip" placeholder="PLZ" max="5">
         <button type="submit">&Ouml;ffnen <i class="material-icons md-18">launch</i></button>
       </form>
     </div>
