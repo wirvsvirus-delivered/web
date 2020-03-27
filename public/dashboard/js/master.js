@@ -85,9 +85,7 @@ var itemsInCart = 1;
 function createNewEntryItem() {
   $('.form-newEntry-items').append('<div class="form-newEntry-item row" id="form-newEntry-item-' +
     itemsInCart +
-    '"><input required style="width:30%" type="text" class="form-newEntry-item-name" placeholder="Name"><input required style="width:20%" type="text" class="form-newEntry-item-amount" placeholder="Menge"><input style="width:35%" type="text" class="form-newEntry-item-info" placeholder="Info"><button onclick="$(\'#form-newEntry-item-' +
-    itemsInCart +
-    '\').remove();itemsInCart-=1" type="button" class="btn-text"><i class="material-icons">delete_outline</i></button></div>')
+    '"><input required style="width:30%" type="text" class="form-newEntry-item-name" placeholder="Name"><input required style="width:20%" type="text" class="form-newEntry-item-amount" placeholder="Menge"><input style="width:35%" type="text" class="form-newEntry-item-info" placeholder="Info"></div>')
 }
 
 var cart = {

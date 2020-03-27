@@ -28,26 +28,33 @@
       </h2>
       <form class="form-newEntry">
         <div>
-          <h3>Grundlegendes</h3>
-          <input required type="text" name="fname" placeholder="Vorname" max="100">
-          <input required type="text" name="lname" placeholder="Nachname" max="100">
-          <input required type="tel" name="tel" placeholder="Telefonnummer" max="50">
+          <h3>Name</h3>
+          <input required type="text" name="fname" placeholder="Vorname" maxlength="100">
+          <input required type="text" name="lname" placeholder="Nachname" maxlength="100">
+        </div>
+        <div>
+          <h3>Telefonnummer</h3>
+          <div class="row">
+            <input type="text" value="+" readonly disabled style="height:42px;font-size: 25px; padding: 0px;text-align: center;width:30px;border-top-right-radius: 0;border-bottom-right-radius: 0; border-right-width:0">
+            <input required type="number" maxlength="3" style="border-top-left-radius: 0;border-bottom-left-radius: 0;margin-right:5px;width:100px" name="areacode" placeholder="L&auml;ndercode">
+            <input style="width:80%" required type="tel" name="tel" placeholder="Telefonnummer" maxlength="50">
+          </div>
         </div>
         <div>
           <h3>Adresse</h3>
           <div class="row">
-            <input style="width:70%" required type="text" name="street" placeholder="Stra&szlig;e" max="100">
-            <input style="width:25%" required type="text" name="num" placeholder="Hausnr." max="5">
+            <input style="width:70%" required type="text" name="street" placeholder="Stra&szlig;e" maxlength="100">
+            <input style="width:25%" required type="text" name="num" placeholder="Hausnr." maxlength="5">
           </div>
-          <input required type="number" name="zip" max="5" placeholder="PLZ">
-          <input type="text" name="addressInfo" placeholder="Zus&auml;tzliche Adressinfo" max="200">
+          <input required type="number" name="zip" maxlength="5" placeholder="PLZ">
+          <input type="text" name="addressInfo" placeholder="Zus&auml;tzliche Adressinfo" maxlength="200">
         </div>
         <div>
           <h3>Geburtstag</h3>
           <div class="row">
-            <input required style="width:30%" name="day" type="number" max="2" placeholder="TT (Tag)">
-            <input required style="width:30%" name="month" type="number" max="2" placeholder="MM (Monat)">
-            <input required style="width:30%" name="year" type="number" maxlenght="4" placeholder="JJJJ (Jahr)">
+            <input required style="width:30%" name="day" type="number" maxlength="2" placeholder="TT (Tag)">
+            <input required style="width:30%" name="month" type="number" maxlength="2" placeholder="MM (Monat)">
+            <input required style="width:30%" name="year" type="number" maxlengthlenght="4" placeholder="JJJJ (Jahr)">
           </div>
         </div>
         <div>
@@ -72,6 +79,8 @@
             </div>
           </div>
           <button onclick="itemsInCart+=1;createNewEntryItem()" type="button" class="btn-text btn-text-underlined">Neuer Artikel</button>
+          &nbsp;
+          <button onclick="$('#form-newEntry-item-' + itemsInCart).remove();itemsInCart-=1" type="button" class="btn-text">Artikel l&ouml;schen</button>
         </div>
         <button type="submit">Absenden <i class="material-icons md-18">send</i></button>
       </form>
@@ -89,7 +98,7 @@
       <form class="form-searchEntry">
         <input required type="text" name="fname" placeholder="Vorname">
         <input required type="text" name="lname" placeholder="Nachname">
-        <input required type="number" name="zip" placeholder="PLZ" max="5">
+        <input required type="number" name="zip" placeholder="PLZ" maxlength="5">
         <button type="submit">&Ouml;ffnen <i class="material-icons md-18">launch</i></button>
       </form>
     </div>
