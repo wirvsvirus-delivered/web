@@ -79,5 +79,32 @@ form h4 {
 /* Korrekte Anzeige von Mehrfachauswahlen */
 input[type="checkbox"] {
   margin-right: 5px;
+  margin-left: 0;
+  -webkit-appearance: none;
+  background: #eee;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: auto;
+  padding: 6px;
+  height: 26px;
+  box-shadow: none;
+}
+
+input[type="checkbox"]::after {
+  content: '✓';
+  width: 11px;
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+  color: rgba(0,0,0,0.2);
+  display: inline-flex;
+  border-radius: 2px;
+  transition: 0.3s color ease-in;
+}
+
+input[type="checkbox"]:checked::after {
+  color: #ab1c48
 }
