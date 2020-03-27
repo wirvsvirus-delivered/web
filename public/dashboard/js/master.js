@@ -21,21 +21,18 @@ firebase.auth().onAuthStateChanged(function(user) {
         if (doc.data().type === 'telephoner') {
           $('.loader-wrapper').hide();
         } else {
-          firebase.auth().signOut().then(function() {
-            window.location.replace('/dashboard/auth/');
-          });
+          firebase.auth().signOut();
+          alert('Du bist kein registrierter Telefonist');
           window.location.replace('/dashboard/auth/');
         }
       } else {
-        firebase.auth().signOut().then(function() {
-          window.location.replace('/dashboard/auth/');
-        });
+        firebase.auth().signOut();
+        alert('Du bist kein registrierter Telefonist');
+        window.location.replace('/dashboard/auth/');
       }
     }).catch(function(error) {
       window.location.replace('/dashboard/auth/');
     });
-  } else {
-    window.location.replace('/dashboard/auth/');
   }
 });
 
@@ -150,9 +147,9 @@ $('.form-newEntry').submit(function(event) {
     items: cart.items
   }).then(function(response) {
     if (response.data.state === 'ok') {
-      dialogue('newEntryDialogue','Auftragsstatus','Erfolgreich abgeschickt');
+      dialogue('newEntryDialogue', 'Auftragsstatus', 'Erfolgreich abgeschickt');
     } else {
-      dialogue('newEntryDialogue','Auftragsstatus','Es ist ein Fehler aufgetreten');
+      dialogue('newEntryDialogue', 'Auftragsstatus', 'Es ist ein Fehler aufgetreten');
     }
   }).catch(function(error) {
     alert(error);

@@ -96,9 +96,13 @@
               });
             } else {
               firebase.auth().signOut();
+              $('.loader-wrapper').hide();
+              dialogue('telephonerError', 'Fehler', 'Du bist kein registrierter Telefonist');
             }
           } else {
             firebase.auth().signOut();
+            $('.loader-wrapper').hide();
+            dialogue('telephonerError', 'Fehler', 'Du bist kein registrierter Telefonist');
           }
         });
       }
