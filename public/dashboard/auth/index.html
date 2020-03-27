@@ -29,6 +29,10 @@
       </h1>
       <input required type="email" placeholder="E-Mail-Adresse">
       <input required type="password" placeholder="Passwort">
+      <div>
+        <input type="checkbox">
+        <label>Eingeloggt bleiben</label>
+      </div>
       <button type="submit">
         Anmelden
         <i class="material-icons md-18">launch</i>
@@ -39,62 +43,67 @@
   <!-- Benötigte Skripte -->
   <script src="/__/firebase/7.12.0/firebase-app.js"></script>
   <script src="/__/firebase/7.12.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.12.0/firebase-firestore.js"></script>
   <script src="/__/firebase/init.js"></script>
   <script src="../js/jquery.js"></script>
   <script>
-
     function dialogue(id, title, content) {
       $('body').append('<div class="modal-wrapper" style="display: flex" id="' +
-      id +
-      '"><div class="modal"><h2 class="heading">' +
-      title +
-      '<button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$(\'#' +
-      id +
-      '\').remove();"><i class="material-icons md-18">close</i></button></h2>' +
-      '<p>' +
-      content +
-      '</p></div></div>')
+        id +
+        '"><div class="modal"><h2 class="heading">' +
+        title +
+        '<button style="border-radius: 50%; padding: 4px;float: right; background:#ab1c48" onclick="$(\'#' +
+        id +
+        '\').remove();"><i class="material-icons md-18">close</i></button></h2>' +
+        '<p>' +
+        content +
+        '</p></div></div>')
     }
 
-    // Wenn du Angemeldet bist, leite weiter zum Dashboard
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        window.location.replace('/dashboard/');
-      }
-    });
-
     // Wenn das Formular abgeschickt wird, ...
-    $("form").submit(function(event) {
+    $('form').submit(function(event) {
       // Stoppe Neuladen
       event.preventDefault();
       // Zeige Loader
       $('.loader-wrapper').css('display', 'flex');
-      firebase.auth().onAuthStateChanged(function(user) {
-        // Ueberpruefe Anmeldung
-        if (user) {
-          // Bleib dauerhaft angemeldet
-          firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(function() {
-              // .. Und Leite zum Dashboard weiter
-              window.location.replace('/dashboard/');
-            })
-            // Catche evtl.e Fehler
-            .catch(function(error) {
-              dialogue('persistenceError', 'Fehler: ' + error.code, error.message)
-              $('.loader-wrapper').hide();
-            });
-        } else {
-          // Melde dich mit E-Mail und Password an
-          firebase.auth().signInWithEmailAndPassword(
-            $('input[type="email"]').val(),
-            $('input[type="password"]').val()
-          ).catch(function(error) {
-            dialogue('authError', 'Fehler: ' + error.code, error.message)
-            $('.loader-wrapper').hide();
-          });
-        };
+      // Melde dich mit E-Mail und Password an
+      firebase.auth().signInWithEmailAndPassword(
+        $('input[type="email"]').val(),
+        $('input[type="password"]').val()
+      ).catch(function(error) {
+        $('.loader-wrapper').hide();
+        dialogue('authError', 'Fehler: ' + error.code, error.message)
       });
     });
+
+    // Wenn du Angemeldet bist, leite weiter zum Dashboard
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // Angemeldet bleiben
+        var db = firebase.firestore();
+        var docRef = db.collection("users").doc(user.uid);
+        docRef.get().then(function(doc) {
+          if (doc.exists) {
+            if (doc.data().type === 'telephoner') {
+              var persistence = firebase.auth.Auth.Persistence.SESSION;
+              if ($('input[type="checkbox"]')[0].checked) {
+                persistence = firebase.auth.Auth.Persistence.LOCAL;
+              }
+              firebase.auth().setPersistence(persistence).then(function() {
+                window.location.replace('../')
+              }).catch(function(error) {
+                dialogue('persistenceError', 'Fehler: ' + error.code, error.message);
+              });
+            } else {
+              firebase.auth().signOut();
+            }
+          } else {
+            firebase.auth().signOut();
+          }
+        });
+      }
+    });
+
     $(document).on('keydown', function(event) {
       if (event.key == "Escape") {
         $('.modal-wrapper').hide();
